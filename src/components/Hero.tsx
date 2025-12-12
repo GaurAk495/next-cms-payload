@@ -31,9 +31,9 @@ function Hero({ hero }: { hero: (typeof localesHomeData)["en"]["hero"] }) {
               {hero.badge}
             </span>
           </div>
-          <h1 className="text-5xl font-bold tracking-tight text-balance text-white md:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight text-balance text-white md:text-5xl lg:text-6xl">
             {hero.title.part1}
-            <span className="text-primary mx-3">{hero.title.highlight}</span>
+            <span className="text-primary"> {hero.title.highlight} </span>
             {hero.title.part2}
           </h1>
           <p className="max-w-xl text-lg text-text-subtle md:text-xl text-balance">

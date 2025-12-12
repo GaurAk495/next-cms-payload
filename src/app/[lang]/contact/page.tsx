@@ -4,11 +4,56 @@ import { LANGUAGES, localeContactData } from "@/app/locales/getData";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Contact Us — FastCMS",
-  description:
-    "Get in touch with the FastCMS team. Whether you need support, sales info, or partnership opportunities, we're here to help.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!LANGUAGES.map((lang) => lang.code).includes(lang)) {
+    return {
+      title: "Contact Us — FastCMS",
+      description:
+        "Get in touch with the FastCMS team. Whether you need support, sales info, or partnership opportunities, we're here to help.",
+    };
+  }
+  const data = localeContactData[lang as keyof typeof localeContactData];
+  return {
+    title: data.hero.title.part1 + " " + data.hero.title.highlight,
+    description: data.hero.description,
+    keywords: ["nextjs", "app-router", "seo"],
+    applicationName: "NexuxCMS",
+    authors: [{ name: "BuildCode Dev", url: "https://buildkube.com" }],
+    icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon-16x16.png",
+      apple: "/apple-touch-icon.png",
+    },
+    openGraph: {
+      title: "NexuxCMS — Contact",
+      description: "A short CMS description",
+      url: "https://nexuscms.com/",
+      siteName: "NexuxCMS",
+      images: [
+        {
+          url: "https://nexuscms.com/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: "My App preview image",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "NexuxCMS — Contact",
+      description: "A short CMS description",
+      images: ["https://nexuscms.com/twitter-image.jpg"],
+      site: "@nexuscms",
+    },
+  };
+}
 
 async function page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
