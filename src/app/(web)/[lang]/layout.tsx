@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Spline_Sans } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/Navbar";
 import { localeLayoutData } from "../locales/getData";
-import Footer from "@/components/Footer";
+import NavBar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const splineSans = Spline_Sans({
   variable: "--font-spline",

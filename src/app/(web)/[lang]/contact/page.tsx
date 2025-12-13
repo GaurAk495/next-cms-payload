@@ -1,8 +1,8 @@
 import { Mail, MapPin, Phone, SendHorizonal } from "lucide-react";
 import { Metadata } from "next";
-import { LANGUAGES, localeContactData } from "@/app/locales/getData";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { LANGUAGES, localeContactData } from "../../locales/getData";
 
 export async function generateMetadata({
   params,

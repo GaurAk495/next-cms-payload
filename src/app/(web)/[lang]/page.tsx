@@ -1,10 +1,10 @@
-import CTA from "@/components/CTA";
-import Feature from "@/components/Feature";
-import Hero from "@/components/Hero";
-import Testimonials from "@/components/Testimonials";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LANGUAGES, localesHomeData } from "../locales/getData";
+import Hero from "../components/Hero";
+import Feature from "../components/Feature";
+import Testimonials from "../components/Testimonials";
+import CTA from "../components/CTA";
 
 export async function generateMetadata({
   params,
