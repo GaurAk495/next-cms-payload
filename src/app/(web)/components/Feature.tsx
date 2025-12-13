@@ -1,25 +1,21 @@
-import { localesHomeData } from "@/app/locales/getData";
 import Image from "next/image";
 import React from "react";
+import { BlockMap } from "../[lang]/page";
 
-function Feature({
-  feature,
-}: {
-  feature: (typeof localesHomeData)["en"]["feature"];
-}) {
+function Feature({ feature }: { feature: BlockMap["feature"] }) {
   return (
     <section className="w-full bg-background-dark py-20 px-4 border-t border-surface-border">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
           <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-            {feature.title}
+            {feature?.title}
           </h2>
           <p className="mt-4 text-text-subtle max-w-2xl mx-auto">
-            {feature.description}
+            {feature?.description}
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {feature.cards.map((card, index) => (
+          {feature?.cards?.map((card, index) => (
             <div
               key={index}
               className="group relative overflow-hidden rounded-lg border border-surface-border bg-surface-dark p-8 transition-all hover:border-primary/50 hover:shadow-[0_0_30px_rgba(43,238,121,0.1)]"

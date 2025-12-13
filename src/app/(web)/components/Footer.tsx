@@ -1,14 +1,8 @@
-import { localeLayoutData } from "@/app/locales/getData";
+import { type Footer } from "@/app/payload-types";
 import Image from "next/image";
 import Link from "next/link";
 
-function Footer({
-  footer,
-  lang,
-}: {
-  footer: (typeof localeLayoutData)["en"]["footer"];
-  lang: String;
-}) {
+function Footer({ footer, lang }: { footer: Footer; lang: string }) {
   return (
     <footer className="w-full border-t border-surface-border bg-[#0d1210] pt-16 pb-8 px-4">
       <div className="mx-auto max-w-7xl">
@@ -33,13 +27,13 @@ function Footer({
             <h4 className="text-white font-bold">
               {footer.sections.product.title}
             </h4>
-            {footer.sections.product.items.map((item) => (
+            {footer.sections.product.items?.map((item) => (
               <Link
-                key={item}
+                key={item.id}
                 className="text-sm text-text-subtle hover:text-primary transition-colors"
                 href={lang + "#"}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -47,13 +41,13 @@ function Footer({
             <h4 className="text-white font-bold">
               {footer.sections.resources.title}
             </h4>
-            {footer.sections.resources.items.map((item) => (
+            {footer.sections.resources.items?.map((item) => (
               <Link
-                key={item}
+                key={item.id}
                 className="text-sm text-text-subtle hover:text-primary transition-colors"
                 href={lang + "#"}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -61,13 +55,13 @@ function Footer({
             <h4 className="text-white font-bold">
               {footer.sections.company.title}
             </h4>
-            {footer.sections.company.items.map((item) => (
+            {footer.sections.company.items?.map((item) => (
               <Link
-                key={item}
+                key={item.id}
                 className="text-sm text-text-subtle hover:text-primary transition-colors"
                 href={lang + "#"}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -79,13 +73,13 @@ function Footer({
               className="text-xs text-text-subtle hover:text-white"
               href={lang + "#"}
             >
-              {footer.legal[0]}
+              {footer.legal?.[0].label}
             </Link>
             <Link
               className="text-xs text-text-subtle hover:text-white"
               href={lang + "#"}
             >
-              {footer.legal[1]}
+              {footer.legal?.[1].label}
             </Link>
           </div>
         </div>

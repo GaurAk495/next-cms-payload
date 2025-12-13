@@ -1,5 +1,6 @@
-import { localesHomeData } from "@/app/locales/getData";
 import { ArrowDown, BookA } from "lucide-react";
+import { BlockMap } from "../[lang]/page";
+import Image from "next/image";
 
 const avatars = [
   {
@@ -16,7 +17,7 @@ const avatars = [
   },
 ];
 
-function Hero({ hero }: { hero: (typeof localesHomeData)["en"]["hero"] }) {
+function Hero({ hero }: { hero: BlockMap["hero"] }) {
   return (
     <section className="min-h-screen relative w-full overflow-hidden pt-28 sm:pt-16 sm:pb-2 px-4 pb-10 bg-background-dark flex justify-center items-center">
       <div className="hero-glow"></div>
@@ -28,26 +29,26 @@ function Hero({ hero }: { hero: (typeof localesHomeData)["en"]["hero"] }) {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
             </span>
             <span className="text-xs font-semibold uppercase tracking-wide text-white">
-              {hero.badge}
+              {hero?.badge}
             </span>
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-balance text-white md:text-5xl lg:text-6xl">
-            {hero.title.part1}
-            <span className="text-primary"> {hero.title.highlight} </span>
-            {hero.title.part2}
+            {hero?.title.part1}
+            <span className="text-primary"> {hero?.title.highlight} </span>
+            {hero?.title.part2}
           </h1>
           <p className="max-w-xl text-lg text-text-subtle md:text-xl text-balance">
-            {hero.description}
+            {hero?.description}
           </p>
           <div className="flex gap-4 pt-2 flex-col justify-start w-full sm:flex-row sm:justify-start sm:items-center ">
             <button className="group flex h-12 min-w-[160px] cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-bold text-[#111814] hover:brightness-110 transition-all">
-              <span>{hero.buttons.primary}</span>
+              <span>{hero?.buttons?.primary}</span>
               <span className="material-symbols-outlined text-sm font-bold">
                 <ArrowDown className="group-hover:translate-x-1 transition-transform duration-200 rotate-270" />
               </span>
             </button>
             <button className="group flex h-12 min-w-[160px] cursor-pointer items-center justify-center gap-2 rounded-full border border-surface-border bg-transparent px-6 text-base font-bold text-white hover:bg-surface-border transition-colors">
-              <span>{hero.buttons.secondary}</span>
+              <span>{hero?.buttons?.secondary}</span>
               <span className="material-symbols-outlined text-sm">
                 <BookA className="text-text-subtle group-hover:scale-105 transition-transform duration-200 " />
               </span>
@@ -64,16 +65,19 @@ function Hero({ hero }: { hero: (typeof localesHomeData)["en"]["hero"] }) {
                 />
               ))}
             </div>
-            <p>{hero.trustedBy}</p>
+            <p>{hero?.trustedBy}</p>
           </div>
         </div>
 
         <div className="hidden sm:flex flex-1 w-full max-w-lg lg:max-w-full z-10 justify-center lg:justify-end">
           <div className="relative overflow-hidden rounded-2xl border border-surface-border bg-surface-dark shadow-2xl transition-transform hover:scale-[1.01]">
-            <img
+            <Image
               alt="Happy woman working efficiently on a laptop with a modern CMS interface"
-              className="h-auto w-full max-w-[550px] object-cover"
+              className="h-full w-full max-w-[550px] object-cover"
               src="/hero_image.gif"
+              unoptimized
+              width={700}
+              height={700}
             />
             <div className="absolute inset-0 bg-linear-to-t from-background-dark/80 via-transparent to-transparent"></div>
           </div>

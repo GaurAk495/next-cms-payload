@@ -6,16 +6,9 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LANGUAGES } from "../locales/getData";
+import { Navbar } from "@/app/payload-types";
 
-const navItems = [
-  { label: "Features", href: "#" },
-  { label: "Developers", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "Contact", href: "/contact" },
-  { label: "Blog", href: "#" },
-];
-
-function NavBar({ lang }: { lang: string }) {
+function NavBar({ lang, data }: { lang: string; data: Navbar }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   return (
@@ -34,12 +27,12 @@ function NavBar({ lang }: { lang: string }) {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => {
+            {data?.navItems?.map((item) => {
               const isActive = pathname === "/" + lang + item.href;
 
               return (
                 <Link
-                  key={item.label}
+                  key={item.id}
                   href={`/${lang}${item.href}`}
                   className={`text-sm font-medium transition-colors ${
                     isActive ? "text-primary" : "text-white hover:text-primary"
@@ -54,10 +47,10 @@ function NavBar({ lang }: { lang: string }) {
           <div className="flex items-center gap-3">
             <LanguageSelector />
             <button className="hidden sm:flex h-10 items-center justify-center rounded-full px-5 text-sm font-bold text-white hover:bg-surface-border transition-colors">
-              Log In
+              {data?.buttons?.[0]?.label}
             </button>
             <button className="flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-black/80 shadow-[0_0_15px_rgba(43,238,121,0.3)] hover:shadow-[0_0_25px_rgba(43,238,121,0.5)] transition-all">
-              Sign Up
+              {data?.buttons?.[1]?.label}
             </button>
             <button
               className="block sm:hidden"
@@ -71,7 +64,7 @@ function NavBar({ lang }: { lang: string }) {
       <MobileSidebar
         open={open}
         setOpen={setOpen}
-        navItems={navItems}
+        navItems={data.navItems!}
         lang={lang}
       />
     </>

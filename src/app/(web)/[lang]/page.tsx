@@ -1,10 +1,20 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LANGUAGES, localesHomeData } from "../locales/getData";
+import { LANGUAGES, SupportedLanguages } from "../locales/getData";
 import Hero from "../components/Hero";
 import Feature from "../components/Feature";
 import Testimonials from "../components/Testimonials";
 import CTA from "../components/CTA";
+import { getData } from "../lib/payload";
+import { Home } from "@/app/payload-types";
+
+export const revalidate = 86400;
+
+export function generateStaticParams() {
+  return LANGUAGES.map((lang) => ({
+    lang: lang.code,
+  }));
+}
 
 export async function generateMetadata({
   params,
@@ -19,10 +29,11 @@ export async function generateMetadata({
         "FastCMS lets teams create SEO-optimized, multi-language websites that load fast. Headless CMS + Next.js — deploy in minutes.",
     };
   }
-  const data = localesHomeData[lang as keyof typeof localesHomeData];
+
+  const data = (await getData("home", lang as SupportedLanguages)) as Home;
   return {
-    title: data.hero.title.part1 + " " + data.hero.title.highlight,
-    description: data.hero.description,
+    title: data.title,
+    description: data.description,
     keywords: ["nextjs", "app-router", "seo"],
     applicationName: "NexuxCMS",
     authors: [{ name: "BuildCode Dev", url: "https://buildkube.com" }],
@@ -57,18 +68,51 @@ export async function generateMetadata({
   };
 }
 
+type HomeBlock = NonNullable<Home["layout"]>[number];
+
+export type BlockMap = {
+  hero?: Extract<HomeBlock, { blockType: "hero" }>;
+  feature?: Extract<HomeBlock, { blockType: "feature" }>;
+  testimonial?: Extract<HomeBlock, { blockType: "testimonial" }>;
+  cta?: Extract<HomeBlock, { blockType: "cta" }>;
+};
+
+function mapHomeBlocks(layout: Home["layout"]): BlockMap {
+  const result: BlockMap = {};
+
+  for (const block of layout ?? []) {
+    switch (block.blockType) {
+      case "hero":
+        result.hero = block;
+        break;
+      case "feature":
+        result.feature = block;
+        break;
+      case "testimonial":
+        result.testimonial = block;
+        break;
+      case "cta":
+        result.cta = block;
+        break;
+    }
+  }
+
+  return result;
+}
+
 async function page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!LANGUAGES.map((lang) => lang.code).includes(lang)) {
     return notFound();
   }
-  const data = localesHomeData[lang as keyof typeof localesHomeData];
+  const home = (await getData("home", lang as SupportedLanguages)) as Home;
+  const { hero, feature, testimonial, cta } = mapHomeBlocks(home.layout);
   return (
     <>
-      <Hero hero={data.hero} />
-      <Feature feature={data.feature} />
-      <Testimonials testimonials={data.testimonials} />
-      <CTA cta={data.cta} />
+      {hero && <Hero hero={hero} />}
+      {feature && <Feature feature={feature} />}
+      {testimonial && <Testimonials testimonials={testimonial} />}
+      {cta && <CTA cta={cta} />}
     </>
   );
 }

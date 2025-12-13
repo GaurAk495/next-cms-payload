@@ -1,17 +1,17 @@
-import { localesHomeData } from "@/app/locales/getData";
+import { BlockMap } from "../[lang]/page";
 import { Quote } from "lucide-react";
 import Image from "next/image";
 
 function Testimonials({
   testimonials,
 }: {
-  testimonials: (typeof localesHomeData)["en"]["testimonials"];
+  testimonials: BlockMap["testimonial"];
 }) {
   return (
     <section className="w-full py-16 sm:py-24  px-4 bg-[#0d1210]">
       <div className="mx-auto max-w-7xl flex flex-col items-center">
         <h2 className="mb-12 text-center text-2xl font-bold text-white md:text-3xl">
-          {testimonials.title}
+          {testimonials?.title}
         </h2>
         <div className="mb-8 flex flex-wrap justify-center gap-10 opacity-60 grayscale md:gap-16">
           <div className="flex items-center gap-2 text-xl font-bold text-white">
@@ -80,21 +80,21 @@ function Testimonials({
             <Quote className="text-primary rotate-180" />
           </span>
           <blockquote className="relative z-10 text-xl font-medium leading-relaxed text-white md:text-3xl">
-            {testimonials.quote}
+            {testimonials?.quote}
           </blockquote>
           <div className="mt-8 flex flex-col items-center justify-center gap-2">
             <div
               className="h-12 w-12 rounded-full bg-cover bg-center"
-              data-alt={`Portrait of ${testimonials.author.name}`}
+              data-alt={`Portrait of ${testimonials?.author?.name}`}
               style={{
                 backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuBygyUMSeOT2G-p4ZQGPOLtRvyoT1iwEo26bTQWsA32T_JCQteFNH0T-D9kKhXifoPbXufeYytpk_IPA9JqyzTLLnoYW5es1JHFJ9BNbl9BfSqM8Rl-GdTU5Wk49KbHzuw0VBCjU1qiyDpdI35iE5Vb4RXqJOorthoHRcf8xYz41rq3rFUo3B2xzjAciD3FT2aSXjEqN4pTotQIjCi7XVdOe6pFxX6M7_9cEGkUAeEcPDkDJ6WO-8zY-D-wPtMgA153Lrm43CN5Wdn_')`,
               }}
             ></div>
             <div className="text-base font-bold text-white">
-              {testimonials.author.name}
+              {testimonials?.author?.name}
             </div>
             <div className="text-sm text-text-subtle">
-              {testimonials.author.role}
+              {testimonials?.author?.role}
             </div>
           </div>
         </div>
