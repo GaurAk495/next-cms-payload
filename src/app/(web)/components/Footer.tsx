@@ -11,7 +11,7 @@ function Footer({ footer, lang }: { footer: Footer; lang: string }) {
             <div className="flex items-center gap-2 text-white mb-6">
               <span className="material-symbols-outlined text-primary">
                 <Image
-                  src="/comp_logo.png"
+                  src="/api/media/file/comp_logo.png"
                   alt="Company Logo"
                   width={24}
                   height={24}
