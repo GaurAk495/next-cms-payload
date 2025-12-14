@@ -1,8 +1,11 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { connectDB } from "./(web)/lib/mongo";
 import { LANGUAGES } from "./(web)/locales/data";
-import { Post } from "./payload-types";
+import { Post } from "./(web)/lib/posts.model";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  await connectDB();
+
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL!;
   const languages = LANGUAGES.map((l) => l.code);
 
@@ -10,7 +13,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   /* ----------------------------------
      Static localized pages
-     (/en, /de, /es, etc.)
   ----------------------------------- */
 
   for (const lang of languages) {
@@ -34,21 +36,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   /* ----------------------------------
-     Localized blog posts (Payload)
+     Blog posts (slug is NOT localized)
   ----------------------------------- */
 
-  for (const lang of languages) {
-    const res = await fetch(
-      `${baseUrl}/api/posts?locale=${lang}&draft=false&limit=1000`,
-      { next: { revalidate: 3600 } }
-    );
+  const posts = await Post.find(
+    {
+      status: "published",
+      publishedAt: { $lte: new Date() },
+    },
+    {
+      slug: 1,
+      updatedAt: 1,
+    }
+  ).lean();
 
-    const { docs } = (await res.json()) as { docs: Post[] };
-
-    for (const post of docs) {
+  for (const post of posts) {
+    for (const lang of languages) {
       sitemap.push({
         url: `${baseUrl}/${lang}/blog/${post.slug}`,
-        lastModified: new Date(post.updatedAt),
+        lastModified: post.updatedAt,
         changeFrequency: "monthly",
         priority: 0.7,
       });
