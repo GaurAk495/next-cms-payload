@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LANGUAGES, SupportedLanguages } from "../locales/getData";
+import { LANGUAGES, SupportedLanguages } from "../locales/data";
 import Hero from "../components/Hero";
 import Feature from "../components/Feature";
 import Testimonials from "../components/Testimonials";
@@ -36,12 +36,13 @@ export async function generateMetadata({
     description: data.description,
     keywords: ["nextjs", "app-router", "seo"],
     applicationName: "NexuxCMS",
-    authors: [{ name: "BuildCode Dev", url: "https://buildkube.com" }],
+    authors: [{ name: "NexuxCMS", url: "https://nexuscms.com" }],
     icons: {
       icon: "/favicon.ico",
       shortcut: "/favicon-16x16.png",
       apple: "/apple-touch-icon.png",
     },
+    metadataBase: new URL("https://nexuscms.com"),
     openGraph: {
       title: "NexuxCMS — Home",
       description: "A short CMS description",

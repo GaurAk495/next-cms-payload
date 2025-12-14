@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { LANGUAGES } from "../locales/getData";
+import { LANGUAGES } from "../locales/data";
 import { Navbar } from "@/app/payload-types";
 
 function NavBar({ lang, data }: { lang: string; data: Navbar }) {

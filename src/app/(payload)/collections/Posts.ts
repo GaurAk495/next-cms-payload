@@ -3,16 +3,20 @@ import slugify from "slugify";
 
 const Posts: CollectionConfig = {
   slug: "posts",
+
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "status", "publishedAt"],
   },
+
   access: {
-    read: () => true, // public access
+    read: () => true,
   },
+
   versions: {
-    drafts: true, // enable draft/publish
+    drafts: true,
   },
+
   timestamps: true,
 
   fields: [
@@ -23,18 +27,23 @@ const Posts: CollectionConfig = {
         {
           name: "metaTitle",
           type: "text",
+          localized: true,
         },
         {
           name: "metaDescription",
           type: "textarea",
+          localized: true,
         },
       ],
     },
+
     {
       name: "title",
       type: "text",
       required: true,
+      localized: true,
     },
+
     {
       name: "slug",
       type: "text",
@@ -44,7 +53,11 @@ const Posts: CollectionConfig = {
         beforeValidate: [
           ({ value, data }) => {
             if (!value && data?.title) {
-              return slugify(data.title, { lower: true });
+              return slugify(data.title, {
+                lower: true,
+                strict: true, // removes : , . ! ? etc
+                trim: true,
+              });
             }
             return value;
           },
@@ -54,31 +67,39 @@ const Posts: CollectionConfig = {
         position: "sidebar",
       },
     },
+
     {
       name: "excerpt",
       type: "textarea",
+      localized: true,
     },
+
     {
       name: "content",
       type: "richText",
       required: true,
+      localized: true,
     },
+
     {
       name: "featuredImage",
       type: "upload",
       relationTo: "media",
     },
+
     {
       name: "categories",
       type: "relationship",
       relationTo: "categories",
       hasMany: true,
     },
+
     {
       name: "author",
       type: "relationship",
       relationTo: "users",
     },
+
     {
       name: "publishedAt",
       type: "date",
@@ -86,6 +107,7 @@ const Posts: CollectionConfig = {
         position: "sidebar",
       },
     },
+
     {
       name: "status",
       type: "select",

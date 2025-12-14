@@ -2,7 +2,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { LANGUAGES, SupportedLanguages } from "../../locales/getData";
+import { LANGUAGES, SupportedLanguages } from "../../locales/data";
 import { getData } from "../../lib/payload";
 import { ContactPage } from "@/app/payload-types";
 import { ContactForm } from "./ContactForm";
@@ -38,12 +38,13 @@ export async function generateMetadata({
     description: data.metadata.description,
     keywords: ["nextjs", "app-router", "seo"],
     applicationName: "NexuxCMS",
-    authors: [{ name: "BuildCode Dev", url: "https://buildkube.com" }],
+    authors: [{ name: "NexuxCMS", url: "https://nexuscms.com" }],
     icons: {
       icon: "/favicon.ico",
       shortcut: "/favicon-16x16.png",
       apple: "/apple-touch-icon.png",
     },
+    metadataBase: new URL("https://nexuscms.com"),
     openGraph: {
       title: "NexuxCMS — Contact",
       description: "A short CMS description",

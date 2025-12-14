@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Spline_Sans } from "next/font/google";
 import "./globals.css";
-import { SupportedLanguages } from "../locales/getData";
+import { SupportedLanguages } from "../locales/data";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { getData } from "../lib/payload";
@@ -14,6 +14,7 @@ const splineSans = Spline_Sans({
 
 export const metadata: Metadata = {
   title: "FastCMS — Build high-performance websites with a modern CMS",
+
   description:
     "FastCMS lets teams create SEO-optimized, multi-language websites that load fast. Headless CMS + Next.js — deploy in minutes.",
   keywords: [
@@ -24,12 +25,13 @@ export const metadata: Metadata = {
     "nextjs cms",
   ],
   applicationName: "NexuxCMS",
-  authors: [{ name: "BuildCode Dev", url: "https://buildkube.com" }],
+  authors: [{ name: "NexuxCMS", url: "https://nexuscms.com" }],
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  metadataBase: new URL("https://nexuscms.com"),
   openGraph: {
     title: "NexuxCMS — Contact",
     description: "A short CMS description",

@@ -20,21 +20,18 @@ export function ContactForm({ form }: { form: ContactPage["form"] }) {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/contact-submissions`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.get("name"),
-            email: formData.get("email"),
-            subject: formData.get("subject"),
-            message: formData.get("message"),
-          }),
-        }
-      );
+      const res = await fetch(`/api/contact-submissions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message"),
+        }),
+      });
       if (!res.ok) {
         const error = await res.json();
         console.log(error);

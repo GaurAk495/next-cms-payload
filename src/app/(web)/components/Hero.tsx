@@ -71,14 +71,17 @@ function Hero({ hero }: { hero: BlockMap["hero"] }) {
 
         <div className="hidden sm:flex flex-1 w-full max-w-lg lg:max-w-full z-10 justify-center lg:justify-end">
           <div className="relative overflow-hidden rounded-2xl border border-surface-border bg-surface-dark shadow-2xl transition-transform hover:scale-[1.01]">
-            <Image
-              alt="Happy woman working efficiently on a laptop with a modern CMS interface"
-              className="h-full w-full max-w-[550px] object-cover"
-              src="/hero_image.gif"
-              unoptimized
-              width={700}
-              height={700}
-            />
+            <video
+              loop
+              muted
+              playsInline
+              autoPlay
+              className="h-full w-full object-cover"
+              width="700"
+              height="700"
+            >
+              <source src="/hero.webm" type="video/webm" />
+            </video>
             <div className="absolute inset-0 bg-linear-to-t from-background-dark/80 via-transparent to-transparent"></div>
           </div>
         </div>
