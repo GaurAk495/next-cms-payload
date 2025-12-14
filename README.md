@@ -1,5 +1,3 @@
-# Restroworks Assignment - Round 2
-
 A high-performance, SEO-optimized, and multi-language website prototype built with **Next.js 16** (App Router) and **PayloadCMS 3.0** (Headless CMS). This project demonstrates a clean architecture, dynamic content management, and modern UI/UX practices.
 
 ## 🚀 Features
