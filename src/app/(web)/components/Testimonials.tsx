@@ -17,8 +17,8 @@ function Testimonials({
           <div className="flex items-center gap-2 text-xl font-bold text-white">
             <span className="material-symbols-outlined">
               <Image
-                src="/testimonials/forest.svg"
-                alt="Forest"
+                src="/api/media/file/stadia_controller.svg"
+                alt="Stadia Controller"
                 width={24}
                 height={24}
                 className="icon-white"
@@ -29,7 +29,7 @@ function Testimonials({
           <div className="flex items-center gap-2 text-xl font-bold text-white">
             <span className="material-symbols-outlined">
               <Image
-                src="/testimonials/diamond.svg"
+                src="/api/media/file/diamond.svg"
                 alt="Diamond"
                 width={24}
                 height={24}
@@ -41,7 +41,7 @@ function Testimonials({
           <div className="flex items-center gap-2 text-xl font-bold text-white">
             <span className="material-symbols-outlined">
               <Image
-                src="/testimonials/rocket_launch.svg"
+                src="/api/media/file/rocket_launch.svg"
                 alt="Rocket"
                 width={24}
                 height={24}
@@ -53,7 +53,7 @@ function Testimonials({
           <div className="flex items-center gap-2 text-xl font-bold text-white">
             <span className="material-symbols-outlined">
               <Image
-                src="/testimonials/waves.svg"
+                src="/api/media/file/waves.svg"
                 alt="Wave"
                 width={24}
                 height={24}
@@ -65,7 +65,7 @@ function Testimonials({
           <div className="flex items-center gap-2 text-xl font-bold text-white">
             <span className="material-symbols-outlined">
               <Image
-                src="/testimonials/forest.svg"
+                src="/api/media/file/forest.svg"
                 alt="Forest"
                 width={24}
                 height={24}

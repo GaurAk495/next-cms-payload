@@ -1,6 +1,5 @@
 import { ArrowDown, BookA } from "lucide-react";
 import { BlockMap } from "../[lang]/page";
-import Image from "next/image";
 
 const avatars = [
   {
@@ -80,7 +79,7 @@ function Hero({ hero }: { hero: BlockMap["hero"] }) {
               width="700"
               height="700"
             >
-              <source src="/hero.webm" type="video/webm" />
+              <source src="/api/media/file/hero.webm" type="video/webm" />
             </video>
             <div className="absolute inset-0 bg-linear-to-t from-background-dark/80 via-transparent to-transparent"></div>
           </div>

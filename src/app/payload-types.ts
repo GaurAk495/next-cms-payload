@@ -493,6 +493,7 @@ export interface Home {
               | {
                   title: string;
                   description?: string | null;
+                  icon?: (string | null) | Media;
                   id?: string | null;
                 }[]
               | null;
@@ -702,6 +703,7 @@ export interface HomeSelect<T extends boolean = true> {
                 | {
                     title?: T;
                     description?: T;
+                    icon?: T;
                     id?: T;
                   };
               id?: T;

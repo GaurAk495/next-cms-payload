@@ -31,6 +31,11 @@ export const Feature: Block = {
           type: "textarea",
           localized: true,
         },
+        {
+          name: "icon",
+          type: "upload",
+          relationTo: "media",
+        },
       ],
     },
   ],

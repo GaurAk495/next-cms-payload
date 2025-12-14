@@ -19,7 +19,12 @@ function NavBar({ lang, data }: { lang: string; data: Navbar }) {
             href={"/" + lang}
             className="flex gap-1 items-stretch text-white"
           >
-            <Image src="/comp_logo.png" alt="Logo" width={32} height={32} />
+            <Image
+              src="/api/media/file/comp_logo.png"
+              alt="Logo"
+              width={32}
+              height={32}
+            />
             <div className="w-px border  border-white/10" />
             <h2 className="place-content-center text-xl font-bold leading-tight tracking-tight">
               Nexus CMS
