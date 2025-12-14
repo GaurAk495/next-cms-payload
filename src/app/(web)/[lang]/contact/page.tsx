@@ -247,7 +247,7 @@ function MapLocation() {
         alt="Dark themed map showing Tech City location"
         className="h-full w-full object-cover grayscale opacity-70 group-hover:opacity-60 transition-opacity duration-500"
         data-location="Tech City"
-        src="/map.png"
+        src="/api/media/file/map.png"
         fill
       />
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
