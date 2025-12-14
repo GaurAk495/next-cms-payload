@@ -2,10 +2,11 @@ import { ArrowDown, RotateCw, Search } from "lucide-react";
 import { getPosts } from "../../lib/payload";
 import { LANGUAGES, SupportedLanguages } from "../../locales/data";
 import Link from "next/link";
-import { isCategory, isMedia, isUser } from "./types";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { data } from "./data";
+import { Category, Media } from "@/app/payload-types";
+import { Author } from "next/dist/lib/metadata/types/metadata-types";
 
 export const revalidate = 300;
 
@@ -125,62 +126,61 @@ export default async function page({
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {articles.map((article) => (
-          <article
-            key={article.id}
-            className="group flex flex-col h-full bg-surface-dark rounded-xl overflow-hidden border border-surface-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
-          >
-            <Link href={`/${lang}/blog/${article.slug}`}>
-              <div className="relative aspect-video w-full overflow-hidden bg-gray-800">
-                {isMedia(article.featuredImage) && (
-                  <img
-                    src={article.featuredImage.url!}
-                    alt={article.featuredImage.alt!}
-                  />
-                )}
+        {articles.map((article) => {
+          const featuredImage = article.featuredImage as Media;
+          const categories = article.categories as Category[];
+          const author = article.author as Author;
+          return (
+            <article
+              key={article.id}
+              className="group flex flex-col h-full bg-surface-dark rounded-xl overflow-hidden border border-surface-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+            >
+              <Link href={`/${lang}/blog/${article.slug}`}>
+                <div className="relative aspect-video w-full overflow-hidden bg-gray-800">
+                  <img src={featuredImage.url!} alt={featuredImage.alt!} />
 
-                <div className="absolute top-3 left-3">
-                  <span className="px-2 py-1 rounded bg-black/60 backdrop-blur-sm text-xs font-bold text-white border border-white/10 font-sans">
-                    {isCategory(article.categories?.[0]) &&
-                      article.categories?.[0].title}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-col grow p-6">
-                <div className="flex items-center gap-2 mb-3 text-xs font-medium text-text-secondary font-sans uppercase tracking-wider">
-                  <time dateTime={article.publishedAt!}>
-                    {new Date(article.publishedAt!).toLocaleDateString(
-                      "en-US",
-                      {
-                        month: "short",
-                        day: "2-digit",
-                        year: "numeric",
-                      }
-                    )}
-                  </time>
-                  <span className="text-primary">•</span>
-                  {isUser(article.author) && <span>{article.author.name}</span>}
-                </div>
-
-                <h3 className="text-2xl font-bold leading-tight mb-3 text-white group-hover:text-primary transition-colors">
-                  {article.title}
-                </h3>
-
-                <p className="text-text-secondary text-base leading-relaxed line-clamp-3 mb-6 grow font-sans font-normal">
-                  {article.excerpt}
-                </p>
-
-                <div className="mt-auto pt-4 border-t border-surface-border">
-                  <div className="inline-flex items-center text-sm font-bold text-white group-hover:text-primary transition-colors gap-1 font-sans">
-                    Read Article
-                    <ArrowDown className="-rotate-90" />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2 py-1 rounded bg-black/60 backdrop-blur-sm text-xs font-bold text-white border border-white/10 font-sans">
+                      {categories[0].title}
+                    </span>
                   </div>
                 </div>
-              </div>
-            </Link>
-          </article>
-        ))}
+
+                <div className="flex flex-col grow p-6">
+                  <div className="flex items-center gap-2 mb-3 text-xs font-medium text-text-secondary font-sans uppercase tracking-wider">
+                    <time dateTime={article.publishedAt!}>
+                      {new Date(article.publishedAt!).toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "short",
+                          day: "2-digit",
+                          year: "numeric",
+                        }
+                      )}
+                    </time>
+                    <span className="text-primary">•</span>
+                    <span>{author.name}</span>
+                  </div>
+
+                  <h3 className="text-2xl font-bold leading-tight mb-3 text-white group-hover:text-primary transition-colors">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-text-secondary text-base leading-relaxed line-clamp-3 mb-6 grow font-sans font-normal">
+                    {article.excerpt}
+                  </p>
+
+                  <div className="mt-auto pt-4 border-t border-surface-border">
+                    <div className="inline-flex items-center text-sm font-bold text-white group-hover:text-primary transition-colors gap-1 font-sans">
+                      Read Article
+                      <ArrowDown className="-rotate-90" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </article>
+          );
+        })}
       </section>
 
       <section className="mt-16 flex justify-center">
