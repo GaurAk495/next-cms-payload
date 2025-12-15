@@ -37,8 +37,8 @@ export async function getPosts(locale: SupportedLanguages) {
       createdAt: true,
     },
     where: {
-      status: {
-        equals: "published",
+      visiblity: {
+        equals: "live",
       },
     },
     locale,
@@ -64,8 +64,8 @@ export async function getPostBySlug(slug: string, locale: SupportedLanguages) {
       content: true,
     },
     where: {
-      status: {
-        equals: "published",
+      visiblity: {
+        equals: "live",
       },
       slug: {
         equals: slug,

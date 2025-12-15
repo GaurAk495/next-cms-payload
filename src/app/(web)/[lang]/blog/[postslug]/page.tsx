@@ -9,14 +9,11 @@ import {
   Share,
   ThumbsUp,
 } from "lucide-react";
-import { isMedia, isUser } from "../types";
 import { Category, Media, User } from "@/app/payload-types";
 import { formateDate } from "@/app/(web)/lib/utils";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { proseClass } from "../data";
 import { Metadata } from "next";
-
-export const revalidate = 300;
 
 export async function generateMetadata({
   params,
@@ -32,10 +29,11 @@ export async function generateMetadata({
     };
   }
   const postData = await getPostBySlug(postslug, lang as SupportedLanguages);
-  const featuredImage = postData.docs[0].featuredImage as Media;
+  const post = postData.docs[0];
+  const featuredImage = post.featuredImage as Media;
   return {
-    title: postData.docs[0].seo?.metaTitle,
-    description: postData.docs[0].seo?.metaDescription,
+    title: post.seo?.metaTitle,
+    description: post.seo?.metaDescription,
     keywords: ["nextjs", "app-router", "seo"],
     applicationName: "NexuxCMS",
     authors: [{ name: "NexuxCMS", url: "https://nexuscms.com" }],
@@ -352,14 +350,12 @@ async function page({
                     </button>
                     <div className="flex gap-4 mt-4 pt-4 border-t border-[#28392f]/50">
                       <div className="shrink-0 w-8 h-8 rounded-full overflow-hidden">
-                        {isUser(post.author) && isMedia(post.author.avatar) && (
-                          <img
-                            alt="Sarah"
-                            className="w-full h-full object-cover"
-                            data-alt="Sarah Jenkins avatar"
-                            src={post.author.avatar.url!}
-                          />
-                        )}
+                        <img
+                          alt="Sarah"
+                          className="w-full h-full object-cover"
+                          data-alt="Sarah Jenkins avatar"
+                          src={avatar.url!}
+                        />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-1">

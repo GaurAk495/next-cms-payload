@@ -200,13 +200,13 @@ export interface ContactSubmission {
  */
 export interface Post {
   id: string;
-  seo?: {
-    metaTitle?: string | null;
-    metaDescription?: string | null;
+  seo: {
+    metaTitle: string;
+    metaDescription: string;
   };
   title: string;
   slug: string;
-  excerpt?: string | null;
+  excerpt: string;
   content: {
     root: {
       type: string;
@@ -222,13 +222,14 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  featuredImage?: (string | null) | Media;
-  categories?: (string | Category)[] | null;
-  author?: (string | null) | User;
-  publishedAt?: string | null;
-  status?: ('draft' | 'published') | null;
+  featuredImage: string | Media;
+  categories: (string | Category)[];
+  author: string | User;
+  publishedAt: string;
+  visiblity?: ('live' | 'hidden') | null;
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
 /**
@@ -385,9 +386,10 @@ export interface PostsSelect<T extends boolean = true> {
   categories?: T;
   author?: T;
   publishedAt?: T;
-  status?: T;
+  visiblity?: T;
   updatedAt?: T;
   createdAt?: T;
+  deletedAt?: T;
   _status?: T;
 }
 /**

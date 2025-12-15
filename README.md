@@ -152,7 +152,7 @@ This will output `payload-types.ts` which you can import in your frontend compon
 
 ## 🔗 Live Demo
 
-[Add your live demo link here]
+https://next-cms-payload-t2uf.vercel.app
 
 ## 🤝 Contribution
 

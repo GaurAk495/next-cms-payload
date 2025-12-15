@@ -1,4 +1,5 @@
 // globals/ContactPage.ts
+import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
 export const ContactPage: GlobalConfig = {
@@ -199,4 +200,14 @@ export const ContactPage: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      async ({ req }) => {
+        const locale = new URL(
+          req.url || "http://localhost:3000"
+        ).searchParams.get("locale");
+        revalidatePath(`/${locale}/contact`);
+      },
+    ],
+  },
 };

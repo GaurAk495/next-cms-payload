@@ -8,8 +8,6 @@ import CTA from "../components/CTA";
 import { getData } from "../lib/payload";
 import { Home } from "@/app/payload-types";
 
-export const revalidate = 86400;
-
 export function generateStaticParams() {
   return LANGUAGES.map((lang) => ({
     lang: lang.code,

@@ -8,8 +8,6 @@ import { data } from "./data";
 import { Category, Media } from "@/app/payload-types";
 import { Author } from "next/dist/lib/metadata/types/metadata-types";
 
-export const revalidate = 300;
-
 export async function generateMetadata({
   params,
 }: {

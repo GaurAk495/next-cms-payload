@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { CollectionConfig } from "payload";
 import slugify from "slugify";
 
@@ -27,11 +28,13 @@ const Posts: CollectionConfig = {
         {
           name: "metaTitle",
           type: "text",
+          required: true,
           localized: true,
         },
         {
           name: "metaDescription",
           type: "textarea",
+          required: true,
           localized: true,
         },
       ],
@@ -71,6 +74,8 @@ const Posts: CollectionConfig = {
     {
       name: "excerpt",
       type: "textarea",
+      required: true,
+
       localized: true,
     },
 
@@ -84,6 +89,7 @@ const Posts: CollectionConfig = {
     {
       name: "featuredImage",
       type: "upload",
+      required: true,
       relationTo: "media",
     },
 
@@ -91,33 +97,84 @@ const Posts: CollectionConfig = {
       name: "categories",
       type: "relationship",
       relationTo: "categories",
+      required: true,
       hasMany: true,
     },
 
     {
       name: "author",
       type: "relationship",
+      required: true,
       relationTo: "users",
     },
 
     {
       name: "publishedAt",
       type: "date",
+      required: true,
       admin: {
         position: "sidebar",
       },
     },
 
     {
-      name: "status",
+      name: "visiblity",
       type: "select",
-      options: ["draft", "published"],
-      defaultValue: "draft",
+      options: ["live", "hidden"],
+      defaultValue: "live",
       admin: {
         position: "sidebar",
       },
     },
   ],
+
+  trash: true,
+  hooks: {
+    afterChange: [
+      async ({ doc, req, previousDoc, operation }) => {
+        if (operation == "create") {
+          console.log("opeartion is creating");
+          revalidatePath(`/en/blog`);
+          revalidatePath(`/de/blog`);
+          revalidatePath(`/es/blog`);
+          return;
+        }
+        if (doc._status === "draft") {
+          console.log("doc is draft");
+          console.log("No invalidation needed for draft");
+          return;
+        }
+
+        if (doc.visiblity !== previousDoc.visiblity) {
+          console.log("visiblity of the post is changed");
+          revalidatePath(`/en/blog`);
+          revalidatePath(`/de/blog`);
+          revalidatePath(`/es/blog`);
+          revalidatePath(`/en/blog/${doc.slug}`);
+          revalidatePath(`/de/blog/${doc.slug}`);
+          revalidatePath(`/es/blog/${doc.slug}`);
+          return;
+        }
+
+        const locale = new URL(
+          req.url || "http://localhost:3000"
+        ).searchParams.get("locale");
+
+        revalidatePath(`/${locale}/blog/${doc.slug}`);
+        revalidatePath(`/${locale}/blog`);
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        revalidatePath(`/en/blog`);
+        revalidatePath(`/de/blog`);
+        revalidatePath(`/es/blog`);
+        revalidatePath(`/en/blog/${doc.slug}`);
+        revalidatePath(`/de/blog/${doc.slug}`);
+        revalidatePath(`/es/blog/${doc.slug}`);
+      },
+    ],
+  },
 };
 
 export default Posts;

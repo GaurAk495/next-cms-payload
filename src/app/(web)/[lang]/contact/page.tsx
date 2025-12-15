@@ -8,8 +8,6 @@ import { ContactPage } from "@/app/payload-types";
 import { ContactForm } from "./ContactForm";
 import Image from "next/image";
 
-export const revalidate = 86400;
-
 export function generateStaticParams() {
   return LANGUAGES.map((lang) => ({
     lang: lang.code,
